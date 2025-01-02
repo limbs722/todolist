@@ -3,6 +3,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import TodoItemCreator from "./TodoItemCreator";
+import TodoItem from "./TodoItem";
 import { todoListState } from "../../recoil/state";
 
 const Container = styled.div``;
@@ -19,8 +20,7 @@ const TodoUserListPage = ({}: Props) => {
             {todoList.map((item) => {
                 return (
                     <div key={item.id}>
-                        <input type="checkbox" checked={item.isComplete} />
-                        <span>{item.text}</span>
+                        <TodoItem item={item} />
                     </div>
                 );
             })}
