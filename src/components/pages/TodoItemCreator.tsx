@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../../recoil/state";
 
 let id = 0;
@@ -11,18 +11,22 @@ function getId() {
 const TodoItemCreator = () => {
     const [inputValue, setInputValue] = useState("");
     const setTodoList = useSetRecoilState(todoListState);
+    const todoList = useRecoilValue(todoListState);
 
     const addItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e.stopPropagation();
         if (e.key === "Enter" && inputValue.length > 0) {
-            setTodoList((oldTodoList) => [
-                ...oldTodoList,
-                {
-                    id: getId(),
-                    text: inputValue,
-                    isComplete: false,
-                },
-            ]);
+            const todo = todoList.filter((item) => item.isComplete);
+            if (todo.length < 10) {
+                setTodoList((oldTodoList) => [
+                    ...oldTodoList,
+                    {
+                        id: getId(),
+                        text: inputValue,
+                        isComplete: false,
+                    },
+                ]);
+            }
         }
     };
 
