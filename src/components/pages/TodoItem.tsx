@@ -2,6 +2,17 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../../recoil/state";
+import {
+    ItemWrapper,
+    CheckboxWrapper,
+    HiddenCheckbox,
+    Icon,
+    ItemTitleWrapper,
+    CloseIconWrapper,
+} from "../../styles/TodoItem.style";
+import CheckIcon from "../../assets/icons/Check.svg";
+import UncheckedIcon from "../../assets/icons/unchecked.svg";
+import CloseIcon from "../../assets/icons/close.svg";
 import type { TodoItemType } from "../../recoil/state";
 
 interface TodoItemProps {
@@ -45,15 +56,32 @@ const TodoItem = ({ item }: { item: TodoItemProps }) => {
     };
 
     return (
-        <div>
-            <input
-                checked={item.isComplete}
-                onChange={toggleItemCompletion}
-                type="checkbox"
-            />
-            <span>{item.text}</span>
-            <button onClick={deleteItem}>X</button>
-        </div>
+        <ItemWrapper>
+            <ItemTitleWrapper>
+                <CheckboxWrapper>
+                    <HiddenCheckbox
+                        checked={item.isComplete}
+                        onChange={toggleItemCompletion}
+                        type="checkbox"
+                    />
+                    <Icon checked={item.isComplete}>
+                        {item.isComplete ? (
+                            <CheckIcon width={24} height={24} alt="check" />
+                        ) : (
+                            <UncheckedIcon
+                                width={24}
+                                height={24}
+                                alt="uncheck"
+                            />
+                        )}
+                    </Icon>
+                </CheckboxWrapper>
+                <span>{item.text}</span>
+            </ItemTitleWrapper>
+            <CloseIconWrapper>
+                <CloseIcon onClick={deleteItem} width={20} height={20} />
+            </CloseIconWrapper>
+        </ItemWrapper>
     );
 };
 

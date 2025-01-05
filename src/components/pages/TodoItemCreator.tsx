@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../../recoil/state";
+import { InputWrapper } from "../../styles/TodoItemCreator.style";
 
 let id = 0;
 function getId() {
@@ -46,7 +47,7 @@ const TodoItemCreator = () => {
     };
 
     return (
-        <div>
+        <InputWrapper>
             <input
                 type="text"
                 value={inputValue}
@@ -55,7 +56,7 @@ const TodoItemCreator = () => {
                 onKeyDown={addItem}
                 onKeyUp={onKeyUp}
             />
-        </div>
+        </InputWrapper>
     );
 };
 
