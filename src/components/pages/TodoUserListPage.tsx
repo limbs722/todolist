@@ -4,9 +4,13 @@ import { useRecoilValue } from "recoil";
 import { filteredTodoListState } from "../../recoil/state";
 import TodoItemCreator from "./TodoItemCreator";
 import TodoItem from "./TodoItem";
-import styled from "@emotion/styled";
-
-const Container = styled.div``;
+import {
+    Container,
+    Title,
+    ListWrapper,
+    ButtonWrapper,
+    ButtonStyle,
+} from "../../styles/TodoItemListPage.style";
 
 interface Props {}
 
@@ -22,21 +26,38 @@ const TodoUserListPage = ({}: Props) => {
 
     return (
         <Container>
-            <div>To Do List</div>
+            <Title>To Do List</Title>
             <TodoItemCreator />
-            <div>
-                <button onClick={() => setFilter("All")}>All</button>
-                <button onClick={() => setFilter("ToDo")}>To Do</button>
-                <button onClick={() => setFilter("Done")}>Done</button>
-            </div>
-            <span>총 {filteredTodoList.length} 개</span>
-            {filteredTodoList.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <TodoItem item={item} />
-                    </div>
-                );
-            })}
+            <ListWrapper>
+                <ButtonWrapper>
+                    <ButtonStyle
+                        isActive={filter === "All"}
+                        onClick={() => setFilter("All")}
+                    >
+                        All
+                    </ButtonStyle>
+                    <ButtonStyle
+                        isActive={filter === "ToDo"}
+                        onClick={() => setFilter("ToDo")}
+                    >
+                        To Do
+                    </ButtonStyle>
+                    <ButtonStyle
+                        isActive={filter === "Done"}
+                        onClick={() => setFilter("Done")}
+                    >
+                        Done
+                    </ButtonStyle>
+                </ButtonWrapper>
+                <span>총 {filteredTodoList.length} 개</span>
+                {filteredTodoList.map((item) => {
+                    return (
+                        <div key={item.id}>
+                            <TodoItem item={item} />
+                        </div>
+                    );
+                })}
+            </ListWrapper>
         </Container>
     );
 };
