@@ -4,20 +4,20 @@ import { useRecoilState } from "recoil";
 import { todoListState } from "../../recoil/state";
 import type { TodoItemType } from "../../recoil/state";
 
-interface Props {
+interface TodoItemProps {
     id: number;
     isComplete: boolean;
     text: string;
 }
 
-const TodoItem = ({ item }: { item: Props }) => {
+const TodoItem = ({ item }: { item: TodoItemProps }) => {
     const [todoList, setTodoList] = useRecoilState(todoListState);
     const index = todoList.findIndex((listItem) => listItem === item);
 
     const removeItemAtIndex = (
         arr: Array<TodoItemType>,
         index: number
-    ): Array<any> => {
+    ): Array<TodoItemType> => {
         return [...arr.slice(0, index), ...arr.slice(index + 1)];
     };
 
