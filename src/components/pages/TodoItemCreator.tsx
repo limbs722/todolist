@@ -34,6 +34,8 @@ const TodoItemCreator = () => {
         const { value } = e.target;
         if (value.length <= 20) {
             setInputValue(value);
+        } else {
+            setInputValue(value.slice(0, 20));
         }
     };
 
